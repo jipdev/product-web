@@ -1,0 +1,9 @@
+<mat-card class="client">
+  <mat-card-header>
+    <mat-card-title>Cadastro de Clientes</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <app-client-form (onSubmit)="onSubmit($event)" [loading]="loading"></app-client-form>
+  </mat-card-content>
+</mat-card>

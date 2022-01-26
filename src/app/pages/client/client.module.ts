@@ -15,13 +15,17 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { NgxMaskModule } from "ngx-mask";
 import { LoadingModule } from "../../shared/components/loading/loading.module";
 import { ClientRoutingModule } from "./client-routing.module";
+import { ClientCreateComponent } from "./components/client-create/client-create.component";
+import { ClientFormComponent } from "./components/client-form/client-form.component";
 import { ClientListTableComponent } from './components/client-list-table/client-list-table.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
 
 @NgModule({
   declarations: [
     ClientListComponent,
-    ClientListTableComponent
+    ClientListTableComponent,
+    ClientCreateComponent,
+    ClientFormComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,56 @@
+<form class="client__form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="client__row">
+    <div class="client__control">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name"/>
+        <mat-error *ngIf="hasError('name', 'required')">Campo obrigatório!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="client__control">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput formControlName="email"/>
+        <mat-error *ngIf="hasError('email', 'required')">Campo obrigatório!</mat-error>
+        <mat-error *ngIf="hasError('email', 'email')">E-mail com formato inválido!</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="client__row">
+    <div class="client__control">
+      <mat-form-field appearance="outline">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" mask="000.000.000-00"/>
+        <mat-error *ngIf="hasError('cpf', 'required')">Campo obrigatório!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="client__control">
+      <mat-form-field appearance="outline">
+        <mat-label>Sexo</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option [value]="'MALE'">Masculino</mat-option>
+          <mat-option [value]="'FEMALE'">Feminino</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('gender', 'required')">Campo obrigatório!</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="client__row">
+    <div class="client__actions">
+      <div class="client__action">
+        <button type="button" routerLink="/" mat-raised-button>Voltar</button>
+      </div>
+
+      <div class="client__action client__action--save">
+        <button type="submit" color="primary" mat-raised-button [disabled]="loading">
+          <mat-spinner color="primary" [diameter]="15" *ngIf="loading"></mat-spinner>
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

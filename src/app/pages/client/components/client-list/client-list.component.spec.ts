@@ -21,7 +21,14 @@ describe('ClientListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ClientListComponent],
-      imports: [HttpClientTestingModule, MatTableModule, MatSnackBarModule, MatIconModule, MatCardModule, LoadingModule]
+      imports: [HttpClientTestingModule, MatTableModule, MatSnackBarModule, MatIconModule, MatCardModule, LoadingModule],
+      providers: [
+        {
+          provide: ClientService, useValue: {
+            findAll: () => of()
+          }
+        }
+      ]
     })
       .compileComponents();
   });
