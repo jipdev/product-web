@@ -22,6 +22,10 @@ export class NavbarComponent implements OnInit {
   listenNavigation(): void {
     this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe({
       next: (event) => this.activeUrl = (event as NavigationEnd).urlAfterRedirects
-    })
+    });
+  }
+
+  goTo(url: string) {
+    this.router.navigateByUrl(url);
   }
 }

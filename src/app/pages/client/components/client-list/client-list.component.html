@@ -1,0 +1,21 @@
+<mat-card class="client">
+  <mat-card-header class="client__header">
+    <mat-card-title>Clientes</mat-card-title>
+    <button class="client__add" color="primary" routerLink="novo" mat-raised-button>
+      <mat-icon>add</mat-icon>
+      Adicionar
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    <ng-container *ngIf="!loading; else LoadingTemplate">
+      <app-client-list-table [data]="clients" (removeItem)="remove($event)"></app-client-list-table>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #LoadingTemplate>
+  <div class="client__loading">
+    <app-loading></app-loading>
+  </div>
+</ng-template>

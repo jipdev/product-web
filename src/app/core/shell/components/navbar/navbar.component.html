@@ -1,6 +1,6 @@
 <nav class="navbar">
   <ul class="navbar__list">
-    <li class="navbar__link" [class.navbar__link--active]="activeUrl?.includes(route.url)" *ngFor="let route of routes" [routerLink]="route.url">
+    <li class="navbar__link" [class.navbar__link--active]="activeUrl?.includes(route.url)" (click)="goTo(route.url)" *ngFor="let route of routes">
       <mat-icon>{{ route.icon }}</mat-icon>
       {{ route.name }}
     </li>

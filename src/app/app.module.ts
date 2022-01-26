@@ -1,3 +1,4 @@
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,9 +13,10 @@ import { ShellModule } from "./core/shell/shell.module";
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    ShellModule
+    HttpClientModule,
+    AppRoutingModule,
+    ShellModule,
   ],
   bootstrap: [AppComponent]
 })

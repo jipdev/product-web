@@ -1,0 +1,18 @@
+.client {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__add {
+    color: #fff;
+  }
+
+  &__loading {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
