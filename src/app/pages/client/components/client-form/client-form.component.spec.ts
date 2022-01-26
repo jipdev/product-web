@@ -1,3 +1,4 @@
+import { SimpleChanges } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -7,6 +8,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
+import { Client } from "../../interfaces/client";
 import { ClientFormComponent } from './client-form.component';
 
 describe('ClientFormComponent', () => {
@@ -51,6 +53,22 @@ describe('ClientFormComponent', () => {
     expect(buildFormSpy).toHaveBeenCalled();
   });
 
+  it('should be ngOnChanges', () => {
+    const changes = {
+      initialValue: {
+        firstChange: true
+      }
+    } as unknown as SimpleChanges
+
+    component.initialValue = {} as Client;
+
+    const updateFormSpy = spyOn(component, 'updateForm').and.stub();
+
+    component.ngOnChanges(changes);
+
+    expect(updateFormSpy).toHaveBeenCalled();
+  });
+
   it('should be buildForm', () => {
     const groupSpy = spyOn(formBuilder, 'group')
       .and.stub()
@@ -65,6 +83,24 @@ describe('ClientFormComponent', () => {
       cpf: [null, Validators.required],
       gender: [null, Validators.required]
     });
+  });
+
+  it('should be updateForm', () => {
+    const name = 'test';
+
+    component.initialValue = { name } as Client;
+    component.form = new FormGroup({
+      name: new FormControl()
+    });
+
+    const patchValueSpy = spyOn(component.form, 'patchValue').and.callThrough();
+    const updateValueAndValiditySpy = spyOn(component.form, 'updateValueAndValidity').and.callThrough();
+
+    component.updateForm();
+
+    expect(component.form.value).toEqual({ name });
+    expect(patchValueSpy).toHaveBeenCalledWith({ name });
+    expect(updateValueAndValiditySpy).toHaveBeenCalled();
   });
 
   it('should be hasError and return true', () => {

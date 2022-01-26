@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from "@angular/router";
 import { CLIENT_LIST_DISPLAY_COLUMNS } from "../../constants/client-list-display-columns";
 import { Client } from "../../interfaces/client";
 import { RemoveClient } from "../../interfaces/remove-client";
@@ -14,7 +15,14 @@ export class ClientListTableComponent {
 
   displayedColumns = CLIENT_LIST_DISPLAY_COLUMNS;
 
+  constructor(private router: Router) {
+  }
+
   remove(index: number, id: string): void {
     this.removeItem.emit({ index, id });
+  }
+
+  edit(id: string): void {
+    this.router.navigate(['clientes', id])
   }
 }

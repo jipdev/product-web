@@ -1,4 +1,5 @@
 import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -22,10 +23,12 @@ describe('ClientListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ClientListComponent],
       imports: [HttpClientTestingModule, MatTableModule, MatSnackBarModule, MatIconModule, MatCardModule, LoadingModule],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [
         {
           provide: ClientService, useValue: {
-            findAll: () => of()
+            findAll: () => of(),
+            remove: (id: string) => of()
           }
         }
       ]

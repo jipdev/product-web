@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Client } from "../../interfaces/client";
@@ -7,10 +7,10 @@ import { Client } from "../../interfaces/client";
   selector: 'app-client-form',
   templateUrl: './client-form.component.html',
   styleUrls: ['./client-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ClientFormComponent implements OnInit {
+export class ClientFormComponent implements OnInit, OnChanges {
   @Input() loading!: boolean;
+  @Input() initialValue!: Client;
   @Output() onSubmit = new EventEmitter<Client>();
 
   form!: FormGroup;
@@ -22,6 +22,12 @@ export class ClientFormComponent implements OnInit {
     this.buildForm();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('initialValue' in changes && this.initialValue) {
+      this.updateForm();
+    }
+  }
+
   buildForm(): void {
     this.form = this.fb.group({
       name: [null, Validators.required],
@@ -29,6 +35,11 @@ export class ClientFormComponent implements OnInit {
       cpf: [null, Validators.required],
       gender: [null, Validators.required],
     });
+  }
+
+  updateForm(): void {
+    this.form.patchValue(this.initialValue);
+    this.form.updateValueAndValidity();
   }
 
   hasError(field: string, error: string): boolean {

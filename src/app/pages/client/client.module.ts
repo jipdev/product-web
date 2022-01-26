@@ -19,13 +19,15 @@ import { ClientCreateComponent } from "./components/client-create/client-create.
 import { ClientFormComponent } from "./components/client-form/client-form.component";
 import { ClientListTableComponent } from './components/client-list-table/client-list-table.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
+import { ClientEditComponent } from './components/client-edit/client-edit.component';
 
 @NgModule({
   declarations: [
     ClientListComponent,
     ClientListTableComponent,
     ClientCreateComponent,
-    ClientFormComponent
+    ClientFormComponent,
+    ClientEditComponent
   ],
   imports: [
     CommonModule,
