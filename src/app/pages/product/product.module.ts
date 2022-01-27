@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -12,11 +12,11 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { LoadingModule } from "../../shared/components/loading/loading.module";
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductListTableComponent } from './components/product-list-table/product-list-table.component';
-import { ProductRoutingModule } from "./product-routing.module";
-import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductListTableComponent } from './components/product-list-table/product-list-table.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductRoutingModule } from "./product-routing.module";
 
 @NgModule({
   declarations: [
@@ -42,4 +42,5 @@ import { ProductCreateComponent } from './components/product-create/product-crea
     MatSelectModule
   ]
 })
-export class ProductModule { }
+export class ProductModule {
+}

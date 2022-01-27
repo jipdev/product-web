@@ -11,7 +11,7 @@ import { NgxMaskModule } from "ngx-mask";
 import { Product } from "../../interfaces/product";
 import { ProductFormComponent } from './product-form.component';
 
-fdescribe('ProductFormComponent', () => {
+describe('ProductFormComponent', () => {
   let component: ProductFormComponent;
   let fixture: ComponentFixture<ProductFormComponent>;
   let formBuilder: FormBuilder;

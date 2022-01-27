@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatTableModule } from "@angular/material/table";
+import { MatTable, MatTableModule } from "@angular/material/table";
 import { of, throwError } from "rxjs";
 import { LoadingModule } from "../../../../shared/components/loading/loading.module";
 import { SNACKBAR_CONFIGURATION } from "../../../../shared/constants/snackbar-configuration";
@@ -106,16 +106,23 @@ describe('ProductListComponent', () => {
       fabrication: Fabrication.NATIONAL,
       price: 1,
       size: 1
+    }
+
+    const params = {
+      id,
+      index: 0,
+      table: {} as MatTable<Product>
     };
 
     component.products = [product, product];
 
     const removeSpy = spyOn(service, 'remove').and.returnValue(of(product));
+    const onRemoveSuccessSpy = spyOn(component, 'onRemoveSuccess').and.callThrough();
 
-    component.remove({ id, index: 0 });
+    component.remove(params);
 
-    expect(component.products.length).toEqual(1);
     expect(removeSpy).toHaveBeenCalledWith(id);
+    expect(onRemoveSuccessSpy).toHaveBeenCalledWith(params);
   });
 
   it('should be remove when has error', () => {
@@ -129,9 +136,31 @@ describe('ProductListComponent', () => {
     const removeSpy = spyOn(service, 'remove').and.returnValue(throwError(() => errorMock));
     const openSpy = spyOn(snackbar, 'open').and.stub();
 
-    component.remove({ id: '1', index: 0 });
+    component.remove({ id: '1', index: 0, table: {} as MatTable<Product> });
 
     expect(removeSpy).toHaveBeenCalledWith(id);
     expect(openSpy).toHaveBeenCalledWith(errorMock.error.message, '', SNACKBAR_CONFIGURATION);
+  });
+
+  it('should be onRemoveSuccess', () => {
+    const product = {} as Product;
+
+    const params = {
+      id: '',
+      index: 0,
+      table: {
+        renderRows() {
+        }
+      } as MatTable<Product>
+    }
+
+    component.products = [product, product];
+
+    const renderRowsSpy = spyOn(params.table, 'renderRows').and.stub();
+
+    component.onRemoveSuccess(params);
+
+    expect(component.products.length).toEqual(1);
+    expect(renderRowsSpy).toHaveBeenCalled();
   });
 });

@@ -29,10 +29,15 @@ export class ProductListComponent implements OnInit {
     }).add(() => this.loading = false)
   }
 
-  remove({ id, index }: RemoveRow) {
-    this.service.remove(id).subscribe({
-      next: () => this.products.splice(index, 1),
+  remove(removeRow: RemoveRow) {
+    this.service.remove(removeRow.id).subscribe({
+      next: () => this.onRemoveSuccess(removeRow),
       error: ({ error }) => this.snackbar.open(error.message, '', SNACKBAR_CONFIGURATION)
     });
+  }
+
+  onRemoveSuccess({ index, table }: RemoveRow): void {
+    this.products.splice(index, 1);
+    table.renderRows();
   }
 }

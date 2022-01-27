@@ -1,7 +1,7 @@
 <mat-card class="product">
   <mat-card-header class="product__header">
     <mat-card-title>Produtos</mat-card-title>
-    <button class="product__add" color="primary" routerLink="novo" mat-raised-button>
+    <button class="product__add" color="primary" mat-raised-button routerLink="novo">
       <mat-icon>add</mat-icon>
       Adicionar
     </button>
@@ -9,7 +9,7 @@
 
   <mat-card-content>
     <ng-container *ngIf="!loading; else LoadingTemplate">
-      <app-product-list-table [data]="products" (removeItem)="remove($event)"></app-product-list-table>
+      <app-product-list-table (removeItem)="remove($event)" [data]="products"></app-product-list-table>
     </ng-container>
   </mat-card-content>
 </mat-card>

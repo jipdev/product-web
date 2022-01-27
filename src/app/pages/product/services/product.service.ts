@@ -6,7 +6,7 @@ import { Product } from "../interfaces/product";
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService extends BaseCrudService<Product>{
+export class ProductService extends BaseCrudService<Product> {
   constructor(http: HttpClient) {
     super('produtos', http);
   }

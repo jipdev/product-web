@@ -28,7 +28,7 @@ describe('ClientService', () => {
       next: (value) => expect(value).toEqual(mock),
     });
 
-    const req = controller.expectOne(`${environment.apiUrl}/clientes`);
+    const req = controller.expectOne(`${ environment.apiUrl }/clientes`);
     req.flush(mock);
   });
 
@@ -40,7 +40,7 @@ describe('ClientService', () => {
       next: (value) => expect(value).toEqual(mock),
     });
 
-    const req = controller.expectOne(`${environment.apiUrl}/clientes/${id}`);
+    const req = controller.expectOne(`${ environment.apiUrl }/clientes/${ id }`);
     req.flush(mock);
   });
 
@@ -61,7 +61,7 @@ describe('ClientService', () => {
       next: (value) => expect(value).toEqual(mock),
     });
 
-    const req = controller.expectOne(`${environment.apiUrl}/clientes`);
+    const req = controller.expectOne(`${ environment.apiUrl }/clientes`);
     req.flush(mock);
 
     expect(req.request.body).toEqual(params);

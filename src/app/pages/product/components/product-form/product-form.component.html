@@ -1,9 +1,9 @@
-<form class="product__form" [formGroup]="form" (ngSubmit)="submit()">
+<form (ngSubmit)="submit()" [formGroup]="form" class="product__form">
   <div class="product__row">
     <div class="product__control">
       <mat-form-field appearance="outline">
         <mat-label>Nome</mat-label>
-        <input matInput formControlName="name"/>
+        <input formControlName="name" matInput/>
         <mat-error *ngIf="hasError('name', 'required')">Campo obrigatório!</mat-error>
       </mat-form-field>
     </div>
@@ -24,7 +24,7 @@
     <div class="product__control">
       <mat-form-field appearance="outline">
         <mat-label>Tamanho</mat-label>
-        <input type="number" min="0" formControlName="size" matInput/>
+        <input formControlName="size" matInput min="0" type="number"/>
         <span class="product__measure" matSuffix>cm</span>
         <mat-error *ngIf="hasError('size', 'required')">Campo obrigatório!</mat-error>
       </mat-form-field>
@@ -34,7 +34,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Preço</mat-label>
         <span class="product__measure" matPrefix>R$</span>
-        <input type="number" min="0" formControlName="price" matInput/>
+        <input formControlName="price" matInput min="0" type="number"/>
         <mat-error *ngIf="hasError('price', 'required')">Campo obrigatório!</mat-error>
       </mat-form-field>
     </div>
@@ -43,12 +43,12 @@
   <div class="product__row">
     <div class="product__actions">
       <div class="product__action">
-        <button type="button" routerLink="/produtos" mat-raised-button>Voltar</button>
+        <button mat-raised-button routerLink="/produtos" type="button">Voltar</button>
       </div>
 
       <div class="product__action product__action--save">
-        <button type="submit" color="primary" mat-raised-button [disabled]="loading">
-          <mat-spinner color="primary" [diameter]="15" *ngIf="loading"></mat-spinner>
+        <button [disabled]="loading" color="primary" mat-raised-button type="submit">
+          <mat-spinner *ngIf="loading" [diameter]="15" color="primary"></mat-spinner>
           Salvar
         </button>
       </div>

@@ -38,7 +38,7 @@ describe('ClientListTableComponent', () => {
 
     component.remove(index, id);
 
-    expect(emitSpy).toHaveBeenCalledWith({ index, id });
+    expect(emitSpy).toHaveBeenCalledWith({ index, id, table: component.table });
   });
 
   it('should be edit', () => {

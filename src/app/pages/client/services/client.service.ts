@@ -6,7 +6,7 @@ import { Client } from "../interfaces/client";
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService extends BaseCrudService<Client>{
+export class ClientService extends BaseCrudService<Client> {
   constructor(http: HttpClient) {
     super('clientes', http);
   }

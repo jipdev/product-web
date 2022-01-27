@@ -5,7 +5,7 @@
 
   <mat-card-content>
     <ng-container *ngIf="!loading.submit; else LoadingTemplate">
-      <app-client-form [initialValue]="client" (onSubmit)="onSubmit($event)" [loading]="!!loading.submit"></app-client-form>
+      <app-client-form (onSubmit)="onSubmit($event)" [initialValue]="client" [loading]="!!loading.submit"></app-client-form>
     </ng-container>
   </mat-card-content>
 </mat-card>
