@@ -1,0 +1,57 @@
+<form class="product__form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="product__row">
+    <div class="product__control">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name"/>
+        <mat-error *ngIf="hasError('name', 'required')">Campo obrigatório!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="product__control">
+      <mat-form-field appearance="outline">
+        <mat-label>Fabricação</mat-label>
+        <mat-select formControlName="fabrication">
+          <mat-option [value]="'NATIONAL'">Nacional</mat-option>
+          <mat-option [value]="'IMPORTED'">Importado</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('fabrication', 'required')">Campo obrigatório!</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="product__row">
+    <div class="product__control">
+      <mat-form-field appearance="outline">
+        <mat-label>Tamanho</mat-label>
+        <input type="number" min="0" formControlName="size" matInput/>
+        <span class="product__measure" matSuffix>cm</span>
+        <mat-error *ngIf="hasError('size', 'required')">Campo obrigatório!</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="product__control">
+      <mat-form-field appearance="outline">
+        <mat-label>Preço</mat-label>
+        <span class="product__measure" matPrefix>R$</span>
+        <input type="number" min="0" formControlName="price" matInput/>
+        <mat-error *ngIf="hasError('price', 'required')">Campo obrigatório!</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="product__row">
+    <div class="product__actions">
+      <div class="product__action">
+        <button type="button" routerLink="/produtos" mat-raised-button>Voltar</button>
+      </div>
+
+      <div class="product__action product__action--save">
+        <button type="submit" color="primary" mat-raised-button [disabled]="loading">
+          <mat-spinner color="primary" [diameter]="15" *ngIf="loading"></mat-spinner>
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
