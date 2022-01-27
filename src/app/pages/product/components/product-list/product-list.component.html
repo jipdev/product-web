@@ -1,0 +1,21 @@
+<mat-card class="product">
+  <mat-card-header class="product__header">
+    <mat-card-title>Produtos</mat-card-title>
+    <button class="product__add" color="primary" routerLink="novo" mat-raised-button>
+      <mat-icon>add</mat-icon>
+      Adicionar
+    </button>
+  </mat-card-header>
+
+  <mat-card-content>
+    <ng-container *ngIf="!loading; else LoadingTemplate">
+      <app-product-list-table [data]="products" (removeItem)="remove($event)"></app-product-list-table>
+    </ng-container>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #LoadingTemplate>
+  <div class="product__loading">
+    <app-loading></app-loading>
+  </div>
+</ng-template>

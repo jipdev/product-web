@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from "@angular/router";
+import { RemoveRow } from "../../../../shared/interfaces/remove-row";
 import { CLIENT_LIST_DISPLAY_COLUMNS } from "../../constants/client-list-display-columns";
 import { Client } from "../../interfaces/client";
-import { RemoveClient } from "../../interfaces/remove-client";
 
 @Component({
   selector: 'app-client-list-table',
   templateUrl: './client-list-table.component.html',
-  styleUrls: ['./client-list-table.component.scss']
+  styleUrls: ['./client-list-table.component.scss', '../../../../shared/scss/list-table.scss']
 })
 export class ClientListTableComponent {
   @Input() data!: Client[];
-  @Output() removeItem = new EventEmitter<RemoveClient>();
+  @Output() removeItem = new EventEmitter<RemoveRow>();
 
   displayedColumns = CLIENT_LIST_DISPLAY_COLUMNS;
 

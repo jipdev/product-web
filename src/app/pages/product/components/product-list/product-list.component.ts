@@ -1,37 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SNACKBAR_CONFIGURATION } from "../../../../shared/constants/snackbar-configuration";
-import { Client } from "../../interfaces/client";
 import { RemoveRow } from "../../../../shared/interfaces/remove-row";
-import { ClientService } from "../../services/client.service";
+import { Product } from "../../interfaces/product";
+import { ProductService } from "../../services/product.service";
 
 @Component({
-  selector: 'app-client-list',
-  templateUrl: './client-list.component.html',
-  styleUrls: ['./client-list.component.scss']
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss']
 })
-export class ClientListComponent implements OnInit {
+export class ProductListComponent implements OnInit {
   loading!: boolean;
-  clients!: Client[];
+  products!: Product[];
 
-  constructor(private service: ClientService, private snackbar: MatSnackBar) {
+  constructor(private service: ProductService, private snackbar: MatSnackBar) {
   }
 
   ngOnInit(): void {
-    this.fetchClients();
+    this.fetchProducts();
   }
 
-  fetchClients(): void {
+  fetchProducts(): void {
     this.loading = true;
     this.service.findAll().subscribe({
-      next: (clients) => this.clients = clients,
+      next: (products) => this.products = products,
       error: ({ error }) => this.snackbar.open(error.message, '', SNACKBAR_CONFIGURATION),
     }).add(() => this.loading = false)
   }
 
   remove({ id, index }: RemoveRow) {
     this.service.remove(id).subscribe({
-      next: () => this.clients.splice(index, 1),
+      next: () => this.products.splice(index, 1),
       error: ({ error }) => this.snackbar.open(error.message, '', SNACKBAR_CONFIGURATION)
     });
   }
