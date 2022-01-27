@@ -2,9 +2,8 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from "@angular/material/card";
-import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
 import { of, throwError } from "rxjs";
 import { SNACKBAR_CONFIGURATION } from "../../../../shared/constants/snackbar-configuration";
 import { Product } from "../../interfaces/product";
@@ -21,8 +20,28 @@ describe('ProductCreateComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProductCreateComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule, MatSnackBarModule, MatCardModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [HttpClientTestingModule, MatSnackBarModule, MatCardModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        {
+          provide: ProductService,
+          useValue: {
+            create: (data: Product) => of()
+          }
+        },
+        {
+          provide: MatSnackBar,
+          useValue: {
+            open: (msg: string, action: string, cfg: MatSnackBarConfig) => null
+          }
+        },
+        {
+          provide: Router,
+          useValue: {
+            navigate: (url: string[]) => null
+          }
+        }
+      ]
     })
       .compileComponents();
   });

@@ -6,7 +6,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
 import { NgxMaskModule } from "ngx-mask";
 import { Product } from "../../interfaces/product";
 import { ProductFormComponent } from './product-form.component';
@@ -23,11 +22,18 @@ describe('ProductFormComponent', () => {
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule,
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
         NgxMaskModule.forRoot()
+      ],
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            navigateByUrl: (url: string) => null
+          }
+        }
       ]
     })
       .compileComponents();

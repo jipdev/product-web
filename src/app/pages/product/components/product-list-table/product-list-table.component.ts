@@ -26,6 +26,6 @@ export class ProductListTableComponent {
   }
 
   edit(id: string): void {
-    this.router.navigate(['produtos', id])
+    this.router.navigate(['/produtos', id])
   }
 }

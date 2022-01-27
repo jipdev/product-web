@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
-import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTable, MatTableModule } from "@angular/material/table";
 import { of, throwError } from "rxjs";
 import { LoadingModule } from "../../../../shared/components/loading/loading.module";
@@ -27,9 +27,16 @@ describe('ClientListComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         {
-          provide: ClientService, useValue: {
+          provide: ClientService,
+          useValue: {
             findAll: () => of(),
             remove: (id: string) => of()
+          }
+        },
+        {
+          provide: MatSnackBar,
+          useValue: {
+            open: (msg: string, action: string, cfg: MatSnackBarConfig) => null
           }
         }
       ]

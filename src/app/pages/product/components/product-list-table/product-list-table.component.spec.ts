@@ -2,8 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule } from "@angular/material/table";
 import { Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-
 import { ProductListTableComponent } from './product-list-table.component';
 
 describe('ProductListTableComponent', () => {
@@ -14,8 +12,16 @@ describe('ProductListTableComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProductListTableComponent],
-      imports: [MatTableModule, RouterTestingModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [MatTableModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            navigate: (url: string[]) => null
+          }
+        }
+      ]
     })
       .compileComponents();
   });
@@ -49,6 +55,6 @@ describe('ProductListTableComponent', () => {
 
     component.edit(id);
 
-    expect(navigateSpy).toHaveBeenCalledWith(['produtos', id]);
+    expect(navigateSpy).toHaveBeenCalledWith(['/produtos', id]);
   });
 });

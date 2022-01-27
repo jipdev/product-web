@@ -4,14 +4,6 @@
   </mat-card-header>
 
   <mat-card-content>
-    <ng-container *ngIf="!loading.submit; else LoadingTemplate">
-      <app-client-form (onSubmit)="onSubmit($event)" [initialValue]="client" [loading]="!!loading.submit"></app-client-form>
-    </ng-container>
+    <app-client-form (onSubmit)="onSubmit($event)" [initialValue]="client" [loading]="loading"></app-client-form>
   </mat-card-content>
 </mat-card>
-
-<ng-template #LoadingTemplate>
-  <div class="client__loading">
-    <app-loading></app-loading>
-  </div>
-</ng-template>

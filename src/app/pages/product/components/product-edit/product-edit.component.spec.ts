@@ -1,36 +1,37 @@
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from "@angular/material/card";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
 import { of, throwError } from "rxjs";
 import { SNACKBAR_CONFIGURATION } from "../../../../shared/constants/snackbar-configuration";
-import { Gender } from "../../enums/gender";
-import { Client } from "../../interfaces/client";
-import { ClientService } from "../../services/client.service";
-import { ClientEditComponent } from './client-edit.component';
+import { Client } from "../../../client/interfaces/client";
+import { Fabrication } from "../../enums/fabrication";
+import { Product } from "../../interfaces/product";
+import { ProductService } from "../../services/product.service";
+import { ProductEditComponent } from './product-edit.component';
 
 const ID = 'abc';
 
-describe('ClientEditComponent', () => {
-  let component: ClientEditComponent;
-  let fixture: ComponentFixture<ClientEditComponent>;
-  let service: ClientService;
+describe('ProductEditComponent', () => {
+  let component: ProductEditComponent;
+  let fixture: ComponentFixture<ProductEditComponent>;
+  let service: ProductService;
   let router: Router;
   let activatedRoute: ActivatedRoute;
   let snackbar: MatSnackBar;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ClientEditComponent],
-      imports: [HttpClientTestingModule, MatSnackBarModule, MatCardModule],
-      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [ProductEditComponent],
+      imports: [MatSnackBarModule, MatCardModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         {
           provide: Router,
           useValue: {
-            navigateByUrl: (url: string) => null
+            navigateByUrl: (url: string) => {
+            }
           }
         },
         {
@@ -44,7 +45,7 @@ describe('ClientEditComponent', () => {
           }
         },
         {
-          provide: ClientService,
+          provide: ProductService,
           useValue: {
             findById: (id: string) => of(),
             update: (client: Client) => of()
@@ -56,9 +57,9 @@ describe('ClientEditComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientEditComponent);
+    fixture = TestBed.createComponent(ProductEditComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(ClientService);
+    service = TestBed.inject(ProductService);
     router = TestBed.inject(Router);
     activatedRoute = TestBed.inject(ActivatedRoute);
     snackbar = TestBed.inject(MatSnackBar);
@@ -69,32 +70,34 @@ describe('ClientEditComponent', () => {
     expect(component).toBeTruthy();
   });
 
+
   it('should be ngOnInit', () => {
-    const fetchClientSpy = spyOn(component, 'fetchClient').and.stub();
+    const fetchClientSpy = spyOn(component, 'fetchProduct').and.stub();
 
     component.ngOnInit();
 
     expect(fetchClientSpy).toHaveBeenCalled();
   });
 
-  it('should be fetchClient', () => {
+  it('should be fetchProduct', () => {
     const mock = {
+      id: '1',
       name: 'test',
-      cpf: '123445678',
-      gender: Gender.MALE,
-      email: 'test@email.com'
-    } as Client;
+      price: 1,
+      size: 1,
+      fabrication: Fabrication.NATIONAL
+    } as Product;
 
     const findByIdSpy = spyOn(service, 'findById').and.returnValue(of(mock));
 
-    component.fetchClient();
+    component.fetchProduct();
 
-    expect(component.client).toEqual(mock);
+    expect(component.product).toEqual(mock);
     expect(findByIdSpy).toHaveBeenCalledWith(ID);
     expect(component.id).toEqual(ID);
   });
 
-  it('should be fetchClient when has error', () => {
+  it('should be fetchProduct when has error', () => {
     const errorMock = {
       error: {
         message: 'test'
@@ -104,9 +107,9 @@ describe('ClientEditComponent', () => {
     const findByIdSpy = spyOn(service, 'findById').and.returnValue(throwError(() => errorMock));
     const onFetchErrorSpy = spyOn(component, 'onFetchError').and.stub();
 
-    component.fetchClient();
+    component.fetchProduct();
 
-    expect(component.client).toBeUndefined();
+    expect(component.product).toBeUndefined();
     expect(findByIdSpy).toHaveBeenCalledWith(ID);
     expect(onFetchErrorSpy).toHaveBeenCalledWith(errorMock.error);
     expect(component.id).toEqual(ID);
@@ -124,37 +127,39 @@ describe('ClientEditComponent', () => {
     component.onFetchError(error);
 
     expect(openSpy).toHaveBeenCalledWith(error.message, undefined, SNACKBAR_CONFIGURATION);
-    expect(navigateByUrlSpy).toHaveBeenCalledWith('/clientes');
+    expect(navigateByUrlSpy).toHaveBeenCalledWith('/produtos');
   });
 
   it('should be onSubmit', () => {
     const client = {
-      email: 'test@email',
-      cpf: '123456789',
+      id: '1',
       name: 'test',
-      gender: Gender.MALE
-    } as Client;
+      price: 1,
+      size: 1,
+      fabrication: Fabrication.NATIONAL
+    } as Product;
 
     component.loading = true;
     component.id = ID;
 
-    const updateSpy = spyOn(service, 'update').and.returnValue(of({} as Client));
+    const updateSpy = spyOn(service, 'update').and.returnValue(of({} as Product));
     const navigateByUrlSpy = spyOn(router, 'navigateByUrl').and.stub();
 
     component.onSubmit(client);
 
     expect(component.loading).toBeFalse();
     expect(updateSpy).toHaveBeenCalledWith(ID, client);
-    expect(navigateByUrlSpy).toHaveBeenCalledWith('/clientes');
+    expect(navigateByUrlSpy).toHaveBeenCalledWith('/produtos');
   });
 
   it('should be onSubmit when has error', () => {
-    const client = {
-      email: 'test@email',
-      cpf: '123456789',
+    const product = {
+      id: '1',
       name: 'test',
-      gender: Gender.MALE
-    } as Client;
+      price: 1,
+      size: 1,
+      fabrication: Fabrication.NATIONAL
+    } as Product;
 
     const errorMock = {
       error: {
@@ -168,10 +173,10 @@ describe('ClientEditComponent', () => {
     const updateSpy = spyOn(service, 'update').and.returnValue(throwError(() => errorMock));
     const openSpy = spyOn(snackbar, 'open').and.stub();
 
-    component.onSubmit(client);
+    component.onSubmit(product);
 
     expect(component.loading).toBeFalse();
-    expect(updateSpy).toHaveBeenCalledWith(ID, client);
+    expect(updateSpy).toHaveBeenCalledWith(ID, product);
     expect(openSpy).toHaveBeenCalledWith(errorMock.error.message, undefined, SNACKBAR_CONFIGURATION);
   });
 });

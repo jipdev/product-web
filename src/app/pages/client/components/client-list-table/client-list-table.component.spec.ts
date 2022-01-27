@@ -14,6 +14,14 @@ describe('ClientListTableComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ClientListTableComponent],
       imports: [MatTableModule, RouterTestingModule],
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            navigate: (url: string[]) => null
+          }
+        }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
@@ -22,7 +30,6 @@ describe('ClientListTableComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClientListTableComponent);
     component = fixture.componentInstance;
-    component.data = [];
     router = TestBed.inject(Router);
     fixture.detectChanges();
   });

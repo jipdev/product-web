@@ -38,6 +38,6 @@ export class ProductListComponent implements OnInit {
 
   onRemoveSuccess({ index, table }: RemoveRow): void {
     this.products.splice(index, 1);
-    table.renderRows();
+    table?.renderRows();
   }
 }

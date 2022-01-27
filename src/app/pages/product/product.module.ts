@@ -13,6 +13,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { LoadingModule } from "../../shared/components/loading/loading.module";
 import { ProductCreateComponent } from './components/product-create/product-create.component';
+import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductListTableComponent } from './components/product-list-table/product-list-table.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
@@ -23,7 +24,8 @@ import { ProductRoutingModule } from "./product-routing.module";
     ProductListComponent,
     ProductListTableComponent,
     ProductFormComponent,
-    ProductCreateComponent
+    ProductCreateComponent,
+    ProductEditComponent
   ],
   imports: [
     CommonModule,

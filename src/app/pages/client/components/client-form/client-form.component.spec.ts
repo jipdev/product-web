@@ -7,7 +7,6 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSelectModule } from "@angular/material/select";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
 import { Client } from "../../interfaces/client";
 import { ClientFormComponent } from './client-form.component';
 
@@ -23,11 +22,18 @@ describe('ClientFormComponent', () => {
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule,
         MatFormFieldModule,
         MatProgressSpinnerModule,
         MatInputModule,
         MatSelectModule
+      ],
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            navigateByUrl: (url: string) => null
+          }
+        }
       ]
     })
       .compileComponents();
