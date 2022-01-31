@@ -5,7 +5,6 @@ import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
 import { of, throwError } from "rxjs";
 import { SNACKBAR_CONFIGURATION } from "../../../../shared/constants/snackbar-configuration";
-import { Client } from "../../../client/interfaces/client";
 import { Fabrication } from "../../enums/fabrication";
 import { Product } from "../../interfaces/product";
 import { ProductService } from "../../services/product.service";
@@ -48,7 +47,7 @@ describe('ProductEditComponent', () => {
           provide: ProductService,
           useValue: {
             findById: (id: string) => of(),
-            update: (client: Client) => of()
+            update: (product: Product) => of()
           }
         }
       ]
@@ -70,13 +69,12 @@ describe('ProductEditComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   it('should be ngOnInit', () => {
-    const fetchClientSpy = spyOn(component, 'fetchProduct').and.stub();
+    const fetchProductSpy = spyOn(component, 'fetchProduct').and.stub();
 
     component.ngOnInit();
 
-    expect(fetchClientSpy).toHaveBeenCalled();
+    expect(fetchProductSpy).toHaveBeenCalled();
   });
 
   it('should be fetchProduct', () => {
@@ -131,13 +129,13 @@ describe('ProductEditComponent', () => {
   });
 
   it('should be onSubmit', () => {
-    const client = {
+    const product: Product = {
       id: '1',
       name: 'test',
       price: 1,
       size: 1,
       fabrication: Fabrication.NATIONAL
-    } as Product;
+    };
 
     component.loading = true;
     component.id = ID;
@@ -145,10 +143,10 @@ describe('ProductEditComponent', () => {
     const updateSpy = spyOn(service, 'update').and.returnValue(of({} as Product));
     const navigateByUrlSpy = spyOn(router, 'navigateByUrl').and.stub();
 
-    component.onSubmit(client);
+    component.onSubmit(product);
 
     expect(component.loading).toBeFalse();
-    expect(updateSpy).toHaveBeenCalledWith(ID, client);
+    expect(updateSpy).toHaveBeenCalledWith(ID, product);
     expect(navigateByUrlSpy).toHaveBeenCalledWith('/produtos');
   });
 
